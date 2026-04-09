@@ -28,7 +28,7 @@ Return ONLY valid JSON, no markdown, no extra text:
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": "sk_ant_api03__bdHPSLWA6YM2y_YzNiV__SJIuwHeO6knIR9J4D0Hs4faLnhLiqUlUQ3q9mK1PsKWfLMQhO186rPexovkXwhBw_cG3CHgAA",
+        "x-api-key": "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",
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({

@@ -10,10 +10,6 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers, body: "" };
   }
 
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed" }) };
-  }
-
   try {
     const { subject } = JSON.parse(event.body);
 
@@ -25,67 +21,34 @@ exports.handler = async (event) => {
 
     const prompt = `Generate a ${subjectPrompts[subject] || subjectPrompts.math} multiple choice question for a 5th grader (age 10-11).
 
-Return ONLY a JSON object with this exact structure, no markdown, no extra text:
-{
-  "question": "The question text here",
-  "choices": ["A. first choice", "B. second choice", "C. third choice", "D. fourth choice"],
-  "answer": "A",
-  "explanation": "Brief explanation of why this is correct (1-2 sentences)"
-}
-
-Rules:
-- Question must be in English
-- Exactly 4 choices labeled A, B, C, D
-- answer field contains only the letter (A, B, C, or D)
-- Match real M-STEP difficulty and style
-- Make it varied`;
+Return ONLY valid JSON, no markdown, no extra text:
+{"question":"...","choices":["A. ...","B. ...","C. ...","D. ..."],"answer":"A","explanation":"..."}`;
 
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
+        "x-api-key": "sk_ant_api03__bdHPSLWA6YM2y_YzNiV__SJIuwHeO6knIR9J4D0Hs4faLnhLiqUlUQ3q9mK1PsKWfLMQhO186rPexovkXwhBw_cG3CHgAA",
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 500,
         messages: [{ role: "user", content: prompt }],
       }),
     });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      throw new Error("API error: " + errText);
-    }
-
     const data = await res.json();
+    if (!res.ok) throw new Error(JSON.stringify(data));
 
-    // レスポンスからテキストを取得
-    let text = "";
-    if (data.content && Array.isArray(data.content)) {
-      for (const block of data.content) {
-        if (block.type === "text") text += block.text;
-      }
-    }
-
-    // JSONを抽出
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error("No JSON found in response");
-    const question = JSON.parse(jsonMatch[0]);
-
-    // 必須フィールド確認
-    if (!question.question || !Array.isArray(question.choices) || !question.answer) {
-      throw new Error("Invalid question format");
-    }
+    const text = data.content[0].text;
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error("No JSON in response");
+    const question = JSON.parse(match[0]);
 
     return { statusCode: 200, headers, body: JSON.stringify(question) };
 
   } catch (err) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: err.message }),
-    };
+    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
   }
 };

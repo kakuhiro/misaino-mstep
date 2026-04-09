@@ -406,10 +406,10 @@ function saveState(){
 // API CALL — Netlify Function経由
 // ═══════════════════════════════════════════
 async function fetchQuestion(subject) {
-  const res = await fetch("/api/ask", {
+  const res = await fetch("/.netlify/functions/ask", {
     method: "POST",
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({subject}),
+    body: JSON.stringify({subject: subject}),
   });
   const data = await res.json();
   if (data.error) throw new Error(data.error);

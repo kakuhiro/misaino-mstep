@@ -1,17 +1,11 @@
-exports.handler = async (event) => {
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Content-Type": "application/json",
-  };
-
-  if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 200, headers, body: "" };
+export default async function handler(req, res) {
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
   }
 
   try {
-    const { subject } = JSON.parse(event.body);
+    const { subject } = req.body;
 
     const subjectPrompts = {
       math:    "5th grade Michigan M-STEP Mathematics",
@@ -21,10 +15,10 @@ exports.handler = async (event) => {
 
     const prompt = `Generate a ${subjectPrompts[subject] || subjectPrompts.math} multiple choice question for a 5th grader (age 10-11).
 
-Return ONLY valid JSON, no markdown, no extra text:
+Return ONLY valid JSON, no markdown:
 {"question":"...","choices":["A. ...","B. ...","C. ...","D. ..."],"answer":"A","explanation":"..."}`;
 
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,17 +32,17 @@ Return ONLY valid JSON, no markdown, no extra text:
       }),
     });
 
-    const data = await res.json();
-    if (!res.ok) throw new Error(JSON.stringify(data));
+    const data = await response.json();
+    if (!response.ok) throw new Error(JSON.stringify(data));
 
     const text = data.content[0].text;
     const match = text.match(/\{[\s\S]*\}/);
-    if (!match) throw new Error("No JSON in response");
+    if (!match) throw new Error("No JSON found");
     const question = JSON.parse(match[0]);
 
-    return { statusCode: 200, headers, body: JSON.stringify(question) };
+    res.status(200).json(question);
 
   } catch (err) {
-    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
+    res.status(500).json({ error: err.message });
   }
-};
+}

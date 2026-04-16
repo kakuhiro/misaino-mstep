@@ -405,11 +405,11 @@ function saveState(){
 // ═══════════════════════════════════════════
 // API CALL — Netlify Function経由
 // ═══════════════════════════════════════════
-async function fetchQuestion(subject) {
+async function fetchQuestion(subject, state.current + 1)subject, questionNumber) {
   const res = await fetch("/api/ask", {
     method: "POST",
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({subject: subject}),
+    body: JSON.stringify({subject: subject, questionNumber: questionNumber}),
   });
   const data = await res.json();
   if (data.error) throw new Error(data.error);
@@ -494,7 +494,7 @@ async function startSession(subject){
   $("nextBtn").classList.add("hidden");
   showLoading(true);
   try {
-    const q = await fetchQuestion(subject);
+    const q = await fetchQuestion(subject, state.current + 1)subject);
     state.sessionQuestions[0]=q;
     showLoading(false);
     renderQuestion();
@@ -520,7 +520,7 @@ function showLoading(show){
 
 async function prefetch(subject,idx){
   if(idx>=10) return;
-  try { const q=await fetchQuestion(subject); state.sessionQuestions[idx]=q; } catch{}
+  try { const q=await fetchQuestion(subject, state.current + 1)subject); state.sessionQuestions[idx]=q; } catch{}
 }
 
 function renderQuestion(){
@@ -590,7 +590,7 @@ async function nextQuestion(){
   setBubble("quiz",pick(char().messages.start));
   if(!state.sessionQuestions[nextIdx]){
     showLoading(true);
-    try { const q=await fetchQuestion(state.subject); state.sessionQuestions[nextIdx]=q; } catch{}
+    try { const q=await fetchQuestion(subject, state.current + 1)state.subject); state.sessionQuestions[nextIdx]=q; } catch{}
     showLoading(false);
     prefetch(state.subject,nextIdx+1);
   }

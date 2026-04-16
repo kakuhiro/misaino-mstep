@@ -3,183 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="M-STEPチャレンジ" />
   <title>三彩乃のM-STEPチャレンジ！</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body {
-      font-family: 'Nunito', 'Hiragino Maru Gothic Pro', sans-serif;
-      background: linear-gradient(135deg, #FFF0F5 0%, #EEF0FF 50%, #F0FFF4 100%);
-      min-height: 100vh; padding-bottom: 40px;
-    }
+    body { font-family: 'Nunito', 'Hiragino Maru Gothic Pro', sans-serif; background: linear-gradient(135deg, #FFF0F5 0%, #EEF0FF 50%, #F0FFF4 100%); min-height: 100vh; padding-bottom: 40px; }
     #app { max-width: 500px; margin: 0 auto; padding: 20px 16px; }
-
-    /* HEADER */
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
     .app-title-sub { font-size: 13px; color: #9CA3AF; font-weight: 600; }
-    .app-title-main {
-      font-size: 26px; font-weight: 900;
-      background: linear-gradient(90deg, #FF6B9D, #6C63FF);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .coin-badge {
-      display: flex; align-items: center; gap: 4px;
-      background: #FEF3C7; border: 2px solid #F59E0B;
-      border-radius: 20px; padding: 6px 14px;
-      font-weight: 800; font-size: 16px; color: #92400E;
-    }
-
-    /* SECTION LABEL */
+    .app-title-main { font-size: 26px; font-weight: 900; background: linear-gradient(90deg, #FF6B9D, #6C63FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .coin-badge { display: flex; align-items: center; gap: 4px; background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 20px; padding: 6px 14px; font-weight: 800; font-size: 16px; color: #92400E; }
     .section-label { font-weight: 800; font-size: 15px; color: #374151; margin-bottom: 10px; margin-top: 16px; }
-
-    /* CHARACTER ROW */
     .char-row { display: flex; gap: 12px; margin-bottom: 4px; }
-    .char-card {
-      flex: 1; padding: 14px 8px; border-radius: 16px; border: 3px solid #E5E7EB;
-      background: #fff; cursor: pointer; display: flex; flex-direction: column;
-      align-items: center; gap: 4px; transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
+    .char-card { flex: 1; padding: 14px 8px; border-radius: 16px; border: 3px solid #E5E7EB; background: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .char-emoji { font-size: 48px; }
     .char-name { font-weight: 700; font-size: 13px; }
     .char-selected { font-size: 10px; }
-    .rainbow-text {
-      background: linear-gradient(90deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF, #C77DFF);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      font-weight: 900;
-    }
-    .clpc-icon {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF, #C77DFF);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 900; color: #fff;
-      letter-spacing: -1px;
-    }
-
-    /* BUBBLE */
-    .bubble {
-      display: flex; align-items: center; border-radius: 14px;
-      border: 2px solid; padding: 12px 16px; margin-bottom: 4px; margin-top: 8px;
-    }
+    .rainbow-text { background: linear-gradient(90deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF, #C77DFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+    .clpc-icon { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #FF6B6B, #FFD93D, #6BCB77, #4D96FF, #C77DFF); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -1px; }
+    .bubble { display: flex; align-items: center; border-radius: 14px; border: 2px solid; padding: 12px 16px; margin-bottom: 4px; margin-top: 8px; }
     .bubble-emoji { font-size: 20px; margin-right: 8px; flex-shrink: 0; }
     .bubble-text { color: #374151; font-weight: 600; font-size: 14px; }
-
-    /* SUBJECT GRID */
     .subject-grid { display: flex; flex-direction: column; gap: 10px; }
-    .subject-card {
-      padding: 16px 18px; border-radius: 16px; border: 2px solid;
-      cursor: pointer; display: flex; flex-direction: row; align-items: center;
-      gap: 12px; text-align: left; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-      transition: transform 0.15s; background: #fff; width: 100%;
-    }
+    .subject-card { padding: 16px 18px; border-radius: 16px; border: 2px solid; cursor: pointer; display: flex; flex-direction: row; align-items: center; gap: 12px; text-align: left; box-shadow: 0 2px 10px rgba(0,0,0,0.06); transition: transform 0.15s; background: #fff; width: 100%; }
     .subject-card:active { transform: scale(0.98); }
     .subject-icon { font-size: 36px; }
     .subject-info { flex: 1; }
     .subject-label { font-weight: 800; font-size: 16px; }
     .subject-desc { font-size: 11px; color: #6B7280; margin-top: 2px; }
-    .start-btn {
-      color: #fff; font-weight: 700; font-size: 13px;
-      border-radius: 20px; padding: 6px 14px; white-space: nowrap;
-      border: none; cursor: pointer;
-    }
-
-    /* MILESTONE */
-    .milestone-section {
-      background: #fff; border-radius: 16px; padding: 14px 16px;
-      margin-top: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .milestone-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 5px 0; border-bottom: 1px solid #F3F4F6;
-      font-size: 13px; font-weight: 600;
-    }
-
-    /* STATS */
+    .start-btn { color: #fff; font-weight: 700; font-size: 13px; border-radius: 20px; padding: 6px 14px; white-space: nowrap; border: none; cursor: pointer; }
+    .milestone-section { background: #fff; border-radius: 16px; padding: 14px 16px; margin-top: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .milestone-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #F3F4F6; font-size: 13px; font-weight: 600; }
     .stats-row { display: flex; gap: 10px; margin-top: 12px; }
-    .stat-box {
-      flex: 1; background: #fff; border-radius: 14px; padding: 12px 8px;
-      text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
+    .stat-box { flex: 1; background: #fff; border-radius: 14px; padding: 12px 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .stat-num { font-size: 24px; font-weight: 900; color: #374151; }
     .stat-lbl { font-size: 11px; color: #9CA3AF; }
     .reset-link { text-align: center; margin-top: 16px; font-size: 11px; color: #D1D5DB; cursor: pointer; text-decoration: underline; }
-
-    /* QUIZ TOP BAR */
     .quiz-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
     .back-btn { background: none; border: none; color: #6B7280; font-weight: 700; font-size: 14px; cursor: pointer; padding: 4px 0; font-family: inherit; }
     .subject-pill { color: #fff; font-weight: 700; font-size: 13px; border-radius: 20px; padding: 5px 14px; }
-
-    /* PROGRESS */
     .progress-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .progress-bar { flex: 1; height: 10px; background: #E5E7EB; border-radius: 8px; overflow: hidden; }
     .progress-fill { height: 100%; border-radius: 8px; transition: width 0.4s ease; }
     .progress-label { font-size: 12px; font-weight: 700; color: #6B7280; white-space: nowrap; }
-
-    /* STREAK */
-    .streak-badge {
-      background: linear-gradient(90deg, #F59E0B, #EF4444);
-      color: #fff; font-weight: 800; font-size: 13px;
-      border-radius: 12px; padding: 6px 14px;
-      text-align: center; margin-bottom: 8px;
-    }
-
-    /* LOADING */
+    .streak-badge { background: linear-gradient(90deg, #F59E0B, #EF4444); color: #fff; font-weight: 800; font-size: 13px; border-radius: 12px; padding: 6px 14px; text-align: center; margin-bottom: 8px; }
     .loading-box { display: flex; flex-direction: column; align-items: center; padding: 40px; }
     .spinner { width: 36px; height: 36px; border: 4px solid #E5E7EB; border-top-color: #6C63FF; border-radius: 50%; animation: spin 0.8s linear infinite; }
     .loading-text { color: #6B7280; font-size: 14px; margin-top: 12px; }
-
-    /* QUESTION */
     .question-box { background: #fff; border-radius: 18px; padding: 18px; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
     .question-num { font-size: 11px; font-weight: 700; color: #9CA3AF; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
     .question-text { font-size: 16px; font-weight: 700; color: #111827; line-height: 1.5; }
-
-    /* CHOICES */
     .choices-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-    .choice-btn {
-      display: flex; align-items: center; gap: 12px; padding: 12px 14px;
-      border-radius: 14px; border: 2px solid #E5E7EB; cursor: pointer;
-      font-weight: 600; text-align: left; transition: all 0.15s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05); background: #fff;
-      font-size: 14px; font-family: inherit; color: #111827; width: 100%;
-    }
-    .choice-btn:active { transform: scale(0.98); }
+    .choice-btn { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; border: 2px solid #E5E7EB; cursor: pointer; font-weight: 600; text-align: left; transition: all 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.05); background: #fff; font-size: 14px; font-family: inherit; color: #111827; width: 100%; }
     .choice-btn.correct { background: #DCFCE7 !important; border-color: #22C55E !important; color: #15803D !important; }
-    .choice-btn.wrong   { background: #FEE2E2 !important; border-color: #EF4444 !important; color: #B91C1C !important; }
-    .choice-btn.faded   { background: #F9FAFB !important; color: #9CA3AF !important; }
-    .choice-letter {
-      width: 28px; height: 28px; border-radius: 50%; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 14px; flex-shrink: 0;
-    }
+    .choice-btn.wrong { background: #FEE2E2 !important; border-color: #EF4444 !important; color: #B91C1C !important; }
+    .choice-btn.faded { background: #F9FAFB !important; color: #9CA3AF !important; }
+    .choice-letter { width: 28px; height: 28px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0; }
     .choice-letter.correct-letter { background: #22C55E !important; }
-    .choice-letter.wrong-letter   { background: #EF4444 !important; }
-
-    /* EXPLANATION */
+    .choice-letter.wrong-letter { background: #EF4444 !important; }
     .explanation-box { background: #FFFBEB; border: 2px solid #FCD34D; border-radius: 12px; padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: #374151; }
-
-    /* NEXT BTN */
-    .next-btn {
-      width: 100%; color: #fff; font-weight: 800; font-size: 16px;
-      border-radius: 14px; padding: 14px; border: none; cursor: pointer;
-      margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      transition: transform 0.1s; font-family: inherit;
-    }
-    .next-btn:active { transform: scale(0.97); }
-
-    /* MILESTONE POPUP */
+    .next-btn { width: 100%; color: #fff; font-weight: 800; font-size: 16px; border-radius: 14px; padding: 14px; border: none; cursor: pointer; margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.1s; font-family: inherit; }
     .milestone-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99; }
-    .milestone-popup {
-      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: #fff; border-radius: 24px; padding: 32px 28px;
-      text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-      z-index: 100; min-width: 280px; border: 4px solid #F59E0B;
-      animation: popIn 0.3s ease;
-    }
-
-    /* RESULT */
+    .milestone-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; border-radius: 24px; padding: 32px 28px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.25); z-index: 100; min-width: 280px; border: 4px solid #F59E0B; animation: popIn 0.3s ease; }
     .result-card { background: #fff; border-radius: 24px; padding: 32px 24px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
     .result-title { font-size: 24px; font-weight: 900; color: #111827; margin-top: 8px; }
     .result-msg { font-size: 14px; color: #6B7280; font-weight: 600; margin: 8px 0 16px; }
@@ -193,7 +81,6 @@
     .next-milestone { background: #FEF3C7; border-radius: 12px; padding: 10px 16px; font-size: 14px; color: #92400E; font-weight: 600; margin-top: 16px; margin-bottom: 8px; }
     .result-btns { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
     .home-btn { width: 100%; background: #F3F4F6; color: #374151; font-weight: 700; font-size: 15px; border-radius: 14px; padding: 12px; border: none; cursor: pointer; font-family: inherit; }
-
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes popIn { from { transform: translate(-50%,-50%) scale(0.7); opacity:0; } to { transform: translate(-50%,-50%) scale(1); opacity:1; } }
     .hidden { display: none !important; }
@@ -201,8 +88,6 @@
 </head>
 <body>
 <div id="app">
-
-  <!-- HOME SCREEN -->
   <div id="homeScreen">
     <div class="header">
       <div>
@@ -211,11 +96,10 @@
       </div>
       <div class="coin-badge">🪙 <span id="coinCount">0</span> コイン</div>
     </div>
-
     <div class="section-label">キャラクターを選んでね！</div>
     <div class="char-row">
       <button class="char-card" id="charHangyodon" onclick="selectChar('hangyodon')">
-        <div class="char-emoji">🐟</div>
+        <div class="char-emoji">🐡</div>
         <div class="char-name" style="color:#3A9BD5">ハンギョドン</div>
         <div class="char-selected" id="selHangyodon" style="color:#3A9BD5">✓ 選択中</div>
       </button>
@@ -225,19 +109,17 @@
         <div class="char-selected hidden" id="selColorful" style="color:#FF6B6B">✓ 選択中</div>
       </button>
     </div>
-
     <div class="bubble" id="homeBubble" style="border-color:#3A9BD540;background:#7BC8F620">
-      <span class="bubble-emoji" id="homeBubbleEmoji">🐟</span>
-      <span class="bubble-text" id="homeBubbleText">今日も一緒に頑張ろう！🐟</span>
+      <span class="bubble-emoji" id="homeBubbleEmoji">🐡</span>
+      <span class="bubble-text" id="homeBubbleText">今日も一緒に頑張ろう！🐡</span>
     </div>
-
     <div class="section-label">どの教科にする？</div>
     <div class="subject-grid">
       <button class="subject-card" style="border-color:#6C63FF50" onclick="startSession('math')">
         <div class="subject-icon">🔢</div>
         <div class="subject-info">
           <div class="subject-label" style="color:#6C63FF">Math</div>
-          <div class="subject-desc">Numbers, fractions &amp; geometry</div>
+          <div class="subject-desc">Volume, fractions &amp; geometry</div>
         </div>
         <button class="start-btn" style="background:#6C63FF">スタート →</button>
       </button>
@@ -245,7 +127,7 @@
         <div class="subject-icon">🔬</div>
         <div class="subject-info">
           <div class="subject-label" style="color:#22C55E">Science</div>
-          <div class="subject-desc">Ecosystems, matter &amp; energy</div>
+          <div class="subject-desc">Cells, organs &amp; ecosystems</div>
         </div>
         <button class="start-btn" style="background:#22C55E">スタート →</button>
       </button>
@@ -253,17 +135,15 @@
         <div class="subject-icon">🌍</div>
         <div class="subject-info">
           <div class="subject-label" style="color:#F59E0B">Social Studies</div>
-          <div class="subject-desc">History, geography &amp; civics</div>
+          <div class="subject-desc">Colonial America &amp; history</div>
         </div>
         <button class="start-btn" style="background:#F59E0B">スタート →</button>
       </button>
     </div>
-
     <div class="milestone-section">
       <div class="section-label" style="margin-top:0">💰 $1 チャレンジ進捗</div>
       <div id="milestoneList"></div>
     </div>
-
     <div class="stats-row">
       <div class="stat-box"><div class="stat-num" id="statTotal">0</div><div class="stat-lbl">総回答数</div></div>
       <div class="stat-box"><div class="stat-num" id="statCoins">0</div><div class="stat-lbl">コイン</div></div>
@@ -271,32 +151,25 @@
     </div>
     <div class="reset-link" onclick="resetData()">データをリセット</div>
   </div>
-
-  <!-- QUIZ SCREEN -->
   <div id="quizScreen" class="hidden">
     <div class="quiz-top-bar">
       <button class="back-btn" onclick="goHome()">← ホーム</button>
       <div class="subject-pill" id="quizSubjectPill">🔢 Math</div>
       <div class="coin-badge">🪙 <span id="quizCoinCount">0</span></div>
     </div>
-
     <div class="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
       <span class="progress-label" id="progressLabel">1 / 10問</span>
     </div>
-
     <div class="streak-badge hidden" id="streakBadge">🔥 3問連続正解！ボーナスコイン中！</div>
-
     <div class="bubble" id="quizBubble" style="border-color:#3A9BD540;background:#7BC8F620;margin-bottom:12px">
-      <span class="bubble-emoji" id="quizBubbleEmoji">🐟</span>
+      <span class="bubble-emoji" id="quizBubbleEmoji">🐡</span>
       <span class="bubble-text" id="quizBubbleText">今日も一緒に頑張ろう！</span>
     </div>
-
     <div id="loadingBox" class="loading-box hidden">
       <div class="spinner"></div>
       <div class="loading-text">問題を読み込み中…</div>
     </div>
-
     <div id="questionArea">
       <div class="question-box">
         <div class="question-num" id="questionNum">QUESTION 1</div>
@@ -306,7 +179,6 @@
       <div class="explanation-box hidden" id="explanationBox"></div>
       <button class="next-btn hidden" id="nextBtn" onclick="nextQuestion()">次の問題 →</button>
     </div>
-
     <div class="milestone-overlay hidden" id="milestoneOverlay"></div>
     <div class="milestone-popup hidden" id="milestonePopup">
       <div style="font-size:48px">🎊</div>
@@ -316,11 +188,9 @@
       <div style="font-size:32px;margin-top:4px" id="milestoneCharEmoji"></div>
     </div>
   </div>
-
-  <!-- RESULT SCREEN -->
   <div id="resultScreen" class="hidden">
     <div class="result-card">
-      <div style="font-size:64px" id="resultCharEmoji">🐟</div>
+      <div style="font-size:64px" id="resultCharEmoji">🐡</div>
       <div class="result-title">セッション終了！</div>
       <div class="result-msg" id="resultMsg"></div>
       <div class="result-score">
@@ -340,308 +210,272 @@
       </div>
     </div>
   </div>
-
-</div><!-- #app -->
-
+</div>
 <script>
-// ═══════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════
-const CHARACTERS = {
+var CHARACTERS = {
   hangyodon: {
-    name:"ハンギョドン", emoji:"🐡", color:"#7BC8F6", accent:"#3A9BD5",
-    messages:{
-      correct:  ["やったー！さすが三彩乃ちゃん✨","正解！ハンギョドンも嬉しいよ🎉","すごい！天才かも！","完璧！この調子でいこう！","ナイス！三彩乃ちゃん最高！"],
-      wrong:    ["大丈夫！次は絶対できるよ🐡","惜しかったね〜！めげないで！","ハンギョドンも難しいと思ったよ💦","次の問題も一緒に頑張ろう！","失敗は成功のもと！ファイト！"],
-      start:    ["今日も一緒に頑張ろう！🐡","三彩乃ちゃんならできる！","ハンギョドンが応援してるよ✨"],
-      milestone:["わあ！すごい！コイン貯まったね！🌟","三彩乃ちゃんって天才！💎","パパに見せてね！🎊"],
-      complete: ["10問全部終わったよ！お疲れ様！🐡","今日もよく頑張ったね！えらい！","完走おめでとう🎉 また明日ね！"],
+    name: "ハンギョドン", emoji: "🐡", color: "#7BC8F6", accent: "#3A9BD5",
+    messages: {
+      correct:   ["やったー！さすが三彩乃ちゃん✨","正解！ハンギョドンも嬉しいよ🎉","すごい！天才かも！","完璧！この調子でいこう！","ナイス！三彩乃ちゃん最高！"],
+      wrong:     ["大丈夫！次は絶対できるよ🐡","惜しかったね〜！めげないで！","ハンギョドンも難しいと思ったよ💦","次の問題も一緒に頑張ろう！","失敗は成功のもと！ファイト！"],
+      start:     ["今日も一緒に頑張ろう！🐡","三彩乃ちゃんならできる！","ハンギョドンが応援してるよ✨"],
+      milestone: ["わあ！すごい！コイン貯まったね！🌟","三彩乃ちゃんって天才！💎","パパに見せてね！🎊"],
+      complete:  ["10問全部終わったよ！お疲れ様！🐡","今日もよく頑張ったね！えらい！","完走おめでとう🎉 また明日ね！"]
     }
   },
   colorfulpeach: {
-    name:"カラフルピーチ", emoji:"🌈", color:"#FFD6E7", accent:"#FF6B6B",
-    messages:{
-      correct:  ["きゃあ！正解！やっぱり三彩乃ちゃんすごい💖","完璧！からぴちメンバーも踊っちゃう🌈","大正解！もっとやって！","天才天才天才！💕","正解！コイン増えたね💰"],
-      wrong:    ["次は絶対大丈夫💖 一緒に頑張ろ！","ドンマイ！三彩乃ちゃんならできる！","むずかしいよね〜！でも諦めないで！","もう一回挑戦だ！💪","からぴちも応援してるよ〜！🌈"],
-      start:    ["今日も一緒にやろう！💖","三彩乃ちゃんのこと応援してる！🌈","絶対できる！レッツゴー！"],
-      milestone:["すっごーい！マイルストーン達成！💖","やったあ！$1もらえるよ！🎊","さすが三彩乃ちゃん！パパに見せよ！"],
-      complete: ["10問お疲れ様〜！えらすぎ！💖","今日の三彩乃ちゃん最高だったよ！","また明日もやろうね！🌈"],
+    name: "カラフルピーチ", emoji: "🌈", color: "#FFD6E7", accent: "#FF6B6B",
+    messages: {
+      correct:   ["きゃあ！正解！やっぱり三彩乃ちゃんすごい💖","完璧！からぴちメンバーも踊っちゃう🌈","大正解！もっとやって！","天才天才天才！💕","正解！コイン増えたね💰"],
+      wrong:     ["次は絶対大丈夫💖 一緒に頑張ろ！","ドンマイ！三彩乃ちゃんならできる！","むずかしいよね〜！でも諦めないで！","もう一回挑戦だ！💪","からぴちも応援してるよ〜！🌈"],
+      start:     ["今日も一緒にやろう！💖","三彩乃ちゃんのこと応援してる！🌈","絶対できる！レッツゴー！"],
+      milestone: ["すっごーい！マイルストーン達成！💖","やったあ！$1もらえるよ！🎊","さすが三彩乃ちゃん！パパに見せよ！"],
+      complete:  ["10問お疲れ様〜！えらすぎ！💖","今日の三彩乃ちゃん最高だったよ！","また明日もやろうね！🌈"]
     }
   }
 };
-
-const SUBJECTS = {
-  math:    {label:"Math",          icon:"🔢", color:"#6C63FF"},
-  science: {label:"Science",       icon:"🔬", color:"#22C55E"},
-  social:  {label:"Social Studies",icon:"🌍", color:"#F59E0B"},
+var SUBJECTS = {
+  math:    { label: "Math",           icon: "🔢", color: "#6C63FF" },
+  science: { label: "Science",        icon: "🔬", color: "#22C55E" },
+  social:  { label: "Social Studies", icon: "🌍", color: "#F59E0B" }
 };
-const MILESTONES = [10,25,50,100,200];
-
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-let state = {
-  character: "hangyodon",
-  subject: "math",
-  coins: parseInt(localStorage.getItem("coins")||"0"),
-  total: parseInt(localStorage.getItem("total")||"0"),
-  sessionQuestions: [],
-  current: 0,
-  sessionScore: 0,
-  streak: 0,
-  selected: null,
+var MILESTONES = [10, 25, 50, 100, 200];
+var state = {
+  character: "hangyodon", subject: "math",
+  coins: parseInt(localStorage.getItem("coins") || "0"),
+  total: parseInt(localStorage.getItem("total") || "0"),
+  sessionQuestions: [], current: 0, sessionScore: 0, streak: 0, selected: null
 };
-
-const pick = arr => arr[Math.floor(Math.random()*arr.length)];
-const char = () => CHARACTERS[state.character];
-const subj = () => SUBJECTS[state.subject];
-const $ = id => document.getElementById(id);
-
-function saveState(){
-  localStorage.setItem("coins", state.coins);
-  localStorage.setItem("total", state.total);
-}
-
-// ═══════════════════════════════════════════
-// API CALL — Netlify Function経由
-// ═══════════════════════════════════════════
-async function fetchQuestion(subject, state.current + 1)subject, questionNumber) {
-  const res = await fetch("/api/ask", {
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function char() { return CHARACTERS[state.character]; }
+function subj() { return SUBJECTS[state.subject]; }
+function ge(id) { return document.getElementById(id); }
+function saveState() { localStorage.setItem("coins", state.coins); localStorage.setItem("total", state.total); }
+function fetchQuestion(subject, questionNumber) {
+  return fetch("/api/ask", {
     method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({subject: subject, questionNumber: questionNumber}),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subject: subject, questionNumber: questionNumber || 1 })
+  }).then(function(res) { return res.json(); }).then(function(data) {
+    if (data.error) throw new Error(data.error);
+    return data;
   });
-  const data = await res.json();
-  if (data.error) throw new Error(data.error);
-  return data;
 }
-
-// ═══════════════════════════════════════════
-// HOME
-// ═══════════════════════════════════════════
-function renderHome(){
-  showScreen("homeScreen");
-  updateCoinDisplay();
-  updateCharUI();
-  renderMilestones();
-  $("statTotal").textContent = state.total;
-  $("statCoins").textContent = state.coins;
-  $("statDollars").textContent = Math.floor(state.coins/10);
+function renderHome() {
+  showScreen("homeScreen"); updateCoinDisplay(); updateCharUI(); renderMilestones();
+  ge("statTotal").textContent = state.total;
+  ge("statCoins").textContent = state.coins;
+  ge("statDollars").textContent = Math.floor(state.coins / 10);
   setBubble("home", pick(char().messages.start));
 }
-
-function updateCoinDisplay(){
-  $("coinCount").textContent = state.coins;
-  $("quizCoinCount").textContent = state.coins;
-  $("statCoins").textContent = state.coins;
-  $("statDollars").textContent = Math.floor(state.coins/10);
+function updateCoinDisplay() {
+  ge("coinCount").textContent = state.coins;
+  ge("quizCoinCount").textContent = state.coins;
+  ge("statCoins").textContent = state.coins;
+  ge("statDollars").textContent = Math.floor(state.coins / 10);
 }
-
-function updateCharUI(){
-  const c = char();
-  $("homeBubble").style.borderColor = c.accent+"40";
-  $("homeBubble").style.background  = c.color+"20";
-  $("homeBubbleEmoji").textContent = c.emoji;
-  ["hangyodon","colorfulpeach"].forEach(k=>{
-    const card = $(k==="hangyodon"?"charHangyodon":"charColorful");
-    const sel  = $(k==="hangyodon"?"selHangyodon":"selColorful");
-    const cc = CHARACTERS[k];
-    if(k===state.character){
-      card.style.borderColor=cc.accent; card.style.background=cc.color+(k==="colorfulpeach"?"80":"30"); card.style.transform="scale(1.05)"; sel.classList.remove("hidden");
+function updateCharUI() {
+  var c = char();
+  ge("homeBubble").style.borderColor = c.accent + "40";
+  ge("homeBubble").style.background = c.color + "20";
+  ge("homeBubbleEmoji").textContent = c.emoji;
+  ["hangyodon", "colorfulpeach"].forEach(function(k) {
+    var card = ge(k === "hangyodon" ? "charHangyodon" : "charColorful");
+    var sel = ge(k === "hangyodon" ? "selHangyodon" : "selColorful");
+    var cc = CHARACTERS[k];
+    if (k === state.character) {
+      card.style.borderColor = cc.accent;
+      card.style.background = cc.color + (k === "colorfulpeach" ? "80" : "30");
+      card.style.transform = "scale(1.05)";
+      sel.classList.remove("hidden");
     } else {
-      card.style.borderColor="#E5E7EB"; card.style.background="#fff"; card.style.transform="scale(1)"; sel.classList.add("hidden");
+      card.style.borderColor = "#E5E7EB";
+      card.style.background = "#fff";
+      card.style.transform = "scale(1)";
+      sel.classList.add("hidden");
     }
   });
 }
-
-function renderMilestones(){
-  const list = $("milestoneList");
-  list.innerHTML="";
-  MILESTONES.forEach(m=>{
-    const done = state.coins>=m;
-    const row = document.createElement("div");
-    row.className="milestone-row";
-    row.innerHTML=`<span style="color:${done?"#22C55E":"#9CA3AF"}">${done?"✅":"⭕"} ${m}コイン</span><span style="color:${done?"#22C55E":"#9CA3AF"};font-size:12px">${done?"達成！$1もらえる！🎉":"あと"+(m-state.coins)+"コイン"}</span>`;
+function renderMilestones() {
+  var list = ge("milestoneList");
+  list.innerHTML = "";
+  MILESTONES.forEach(function(m) {
+    var done = state.coins >= m;
+    var row = document.createElement("div");
+    row.className = "milestone-row";
+    row.innerHTML = "<span style=\"color:" + (done ? "#22C55E" : "#9CA3AF") + "\">" + (done ? "✅" : "⭕") + " " + m + "コイン</span><span style=\"color:" + (done ? "#22C55E" : "#9CA3AF") + ";font-size:12px\">" + (done ? "達成！$1もらえる！🎉" : "あと" + (m - state.coins) + "コイン") + "</span>";
     list.appendChild(row);
   });
 }
-
-function selectChar(key){ state.character=key; updateCharUI(); setBubble("home",pick(char().messages.start)); }
-
-function setBubble(screen,msg){
-  if(screen==="home"){
-    $("homeBubbleText").textContent=msg;
-    $("homeBubbleEmoji").textContent=char().emoji;
+function selectChar(key) { state.character = key; updateCharUI(); setBubble("home", pick(char().messages.start)); }
+function setBubble(screen, msg) {
+  if (screen === "home") {
+    ge("homeBubbleText").textContent = msg;
+    ge("homeBubbleEmoji").textContent = char().emoji;
   } else {
-    $("quizBubbleText").textContent=msg;
-    $("quizBubbleEmoji").textContent=char().emoji;
-    $("quizBubble").style.borderColor=char().accent+"40";
-    $("quizBubble").style.background =char().color+"20";
+    ge("quizBubbleText").textContent = msg;
+    ge("quizBubbleEmoji").textContent = char().emoji;
+    ge("quizBubble").style.borderColor = char().accent + "40";
+    ge("quizBubble").style.background = char().color + "20";
   }
 }
-
-// ═══════════════════════════════════════════
-// QUIZ
-// ═══════════════════════════════════════════
-async function startSession(subject){
-  state.subject=subject; state.sessionQuestions=[]; state.current=0;
-  state.sessionScore=0; state.streak=0; state.selected=null;
-  showScreen("quizScreen");
-  updateQuizHeader();
-  setBubble("quiz",pick(char().messages.start));
-  $("streakBadge").classList.add("hidden");
-  $("explanationBox").classList.add("hidden");
-  $("nextBtn").classList.add("hidden");
+function startSession(subject) {
+  state.subject = subject; state.sessionQuestions = []; state.current = 0;
+  state.sessionScore = 0; state.streak = 0; state.selected = null;
+  showScreen("quizScreen"); updateQuizHeader();
+  setBubble("quiz", pick(char().messages.start));
+  ge("streakBadge").classList.add("hidden");
+  ge("explanationBox").classList.add("hidden");
+  ge("nextBtn").classList.add("hidden");
   showLoading(true);
-  try {
-    const q = await fetchQuestion(subject, state.current + 1)subject);
-    state.sessionQuestions[0]=q;
+  fetchQuestion(subject, 1).then(function(q) {
+    state.sessionQuestions[0] = q;
     showLoading(false);
     renderQuestion();
-    prefetch(subject,1);
-  } catch(e) {
+    prefetch(subject, 1);
+  }).catch(function(e) {
     showLoading(false);
-    alert("問題の読み込みに失敗しました😢\n"+e.message);
+    alert("問題の読み込みに失敗しました😢\n" + e.message);
     goHome();
-  }
+  });
 }
-
-function updateQuizHeader(){
-  const s=subj();
-  $("quizSubjectPill").textContent=s.icon+" "+s.label;
-  $("quizSubjectPill").style.background=s.color;
-  $("retryBtn").style.background=s.color;
+function updateQuizHeader() {
+  var s = subj();
+  ge("quizSubjectPill").textContent = s.icon + " " + s.label;
+  ge("quizSubjectPill").style.background = s.color;
+  ge("retryBtn").style.background = s.color;
 }
-
-function showLoading(show){
-  $("loadingBox").classList.toggle("hidden",!show);
-  $("questionArea").classList.toggle("hidden",show);
+function showLoading(show) {
+  ge("loadingBox").classList.toggle("hidden", !show);
+  ge("questionArea").classList.toggle("hidden", show);
 }
-
-async function prefetch(subject,idx){
-  if(idx>=10) return;
-  try { const q=await fetchQuestion(subject, state.current + 1)subject); state.sessionQuestions[idx]=q; } catch{}
+function prefetch(subject, idx) {
+  if (idx >= 10) return;
+  fetchQuestion(subject, idx + 1).then(function(q) {
+    state.sessionQuestions[idx] = q;
+  }).catch(function() {});
 }
-
-function renderQuestion(){
-  const q=state.sessionQuestions[state.current];
-  if(!q) return;
-  $("progressFill").style.width=(state.current/10*100)+"%";
-  $("progressFill").style.background=subj().color;
-  $("progressLabel").textContent=(state.current+1)+" / 10問";
-  $("questionNum").textContent="QUESTION "+(state.current+1);
-  $("questionText").textContent=q.question;
-  const grid=$("choicesGrid");
-  grid.innerHTML="";
-  q.choices.forEach(c=>{
-    const btn=document.createElement("button");
-    btn.className="choice-btn";
-    btn.innerHTML=`<span class="choice-letter" style="background:${subj().color}">${c[0]}</span><span>${c.slice(3)}</span>`;
-    btn.onclick=()=>handleAnswer(c);
+function renderQuestion() {
+  var q = state.sessionQuestions[state.current];
+  if (!q) return;
+  ge("progressFill").style.width = (state.current / 10 * 100) + "%";
+  ge("progressFill").style.background = subj().color;
+  ge("progressLabel").textContent = (state.current + 1) + " / 10問";
+  ge("questionNum").textContent = "QUESTION " + (state.current + 1);
+  ge("questionText").textContent = q.question;
+  var grid = ge("choicesGrid");
+  grid.innerHTML = "";
+  q.choices.forEach(function(c) {
+    var btn = document.createElement("button");
+    btn.className = "choice-btn";
+    btn.innerHTML = "<span class=\"choice-letter\" style=\"background:" + subj().color + "\">" + c[0] + "</span><span>" + c.slice(3) + "</span>";
+    btn.onclick = function() { handleAnswer(c); };
     grid.appendChild(btn);
   });
-  $("explanationBox").classList.add("hidden");
-  $("nextBtn").classList.add("hidden");
-  state.selected=null;
+  ge("explanationBox").classList.add("hidden");
+  ge("nextBtn").classList.add("hidden");
+  state.selected = null;
 }
-
-function handleAnswer(choice){
-  if(state.selected!==null) return;
-  state.selected=choice;
-  const q=state.sessionQuestions[state.current];
-  const correct=choice[0]===q.answer;
+function handleAnswer(choice) {
+  if (state.selected !== null) return;
+  state.selected = choice;
+  var q = state.sessionQuestions[state.current];
+  var correct = choice[0] === q.answer;
   state.total++;
-  if(correct){
+  if (correct) {
     state.streak++; state.sessionScore++;
-    const bonus=state.streak>=3?2:1;
-    const old=state.coins; state.coins+=bonus;
+    var bonus = state.streak >= 3 ? 2 : 1;
+    var old = state.coins;
+    state.coins += bonus;
     saveState(); updateCoinDisplay();
-    setBubble("quiz",pick(char().messages.correct));
-    checkMilestone(old,state.coins);
+    setBubble("quiz", pick(char().messages.correct));
+    checkMilestone(old, state.coins);
   } else {
-    state.streak=0; saveState();
-    setBubble("quiz",pick(char().messages.wrong));
+    state.streak = 0; saveState();
+    setBubble("quiz", pick(char().messages.wrong));
   }
-  if(state.streak>=3){ $("streakBadge").classList.remove("hidden"); $("streakBadge").textContent="🔥 "+state.streak+"問連続正解！ボーナスコイン中！"; }
-  else $("streakBadge").classList.add("hidden");
-
-  const btns=$("choicesGrid").querySelectorAll(".choice-btn");
-  btns.forEach(btn=>{
-    const letter=btn.querySelector(".choice-letter");
-    const l=letter.textContent;
-    if(l===q.answer){ btn.classList.add("correct"); letter.classList.add("correct-letter"); }
-    else if(l===choice[0]&&!correct){ btn.classList.add("wrong"); letter.classList.add("wrong-letter"); }
-    else btn.classList.add("faded");
-    btn.disabled=true;
+  if (state.streak >= 3) {
+    ge("streakBadge").classList.remove("hidden");
+    ge("streakBadge").textContent = "🔥 " + state.streak + "問連続正解！ボーナスコイン中！";
+  } else {
+    ge("streakBadge").classList.add("hidden");
+  }
+  var btns = ge("choicesGrid").querySelectorAll(".choice-btn");
+  btns.forEach(function(btn) {
+    var letter = btn.querySelector(".choice-letter");
+    var l = letter.textContent;
+    if (l === q.answer) { btn.classList.add("correct"); letter.classList.add("correct-letter"); }
+    else if (l === choice[0] && !correct) { btn.classList.add("wrong"); letter.classList.add("wrong-letter"); }
+    else { btn.classList.add("faded"); }
+    btn.disabled = true;
   });
-  if(q.explanation){ $("explanationBox").textContent="💡 "+q.explanation; $("explanationBox").classList.remove("hidden"); }
-  const nb=$("nextBtn");
-  nb.style.background=subj().color;
-  nb.textContent=(state.current+1>=10)?"結果を見る 🎉":"次の問題 →";
+  if (q.explanation) {
+    ge("explanationBox").textContent = "💡 " + q.explanation;
+    ge("explanationBox").classList.remove("hidden");
+  }
+  var nb = ge("nextBtn");
+  nb.style.background = subj().color;
+  nb.textContent = (state.current + 1 >= 10) ? "結果を見る 🎉" : "次の問題 →";
   nb.classList.remove("hidden");
 }
-
-async function nextQuestion(){
-  const nextIdx=state.current+1;
-  if(nextIdx>=10){ showResult(); return; }
-  state.current=nextIdx;
-  $("explanationBox").classList.add("hidden");
-  $("nextBtn").classList.add("hidden");
-  setBubble("quiz",pick(char().messages.start));
-  if(!state.sessionQuestions[nextIdx]){
+function nextQuestion() {
+  var nextIdx = state.current + 1;
+  if (nextIdx >= 10) { showResult(); return; }
+  state.current = nextIdx;
+  ge("explanationBox").classList.add("hidden");
+  ge("nextBtn").classList.add("hidden");
+  setBubble("quiz", pick(char().messages.start));
+  if (!state.sessionQuestions[nextIdx]) {
     showLoading(true);
-    try { const q=await fetchQuestion(subject, state.current + 1)state.subject); state.sessionQuestions[nextIdx]=q; } catch{}
-    showLoading(false);
-    prefetch(state.subject,nextIdx+1);
+    fetchQuestion(state.subject, nextIdx + 1).then(function(q) {
+      state.sessionQuestions[nextIdx] = q;
+      showLoading(false);
+      prefetch(state.subject, nextIdx + 1);
+      renderQuestion();
+    }).catch(function() { showLoading(false); renderQuestion(); });
+  } else {
+    renderQuestion();
   }
-  renderQuestion();
 }
-
-// ═══════════════════════════════════════════
-// MILESTONE
-// ═══════════════════════════════════════════
-function checkMilestone(old,now){
-  const reached=MILESTONES.find(m=>old<m&&now>=m);
-  if(!reached) return;
-  $("milestoneTitle").textContent=reached+"コイン達成！";
-  $("milestoneMsg").textContent=pick(char().messages.milestone);
-  $("milestoneCharEmoji").textContent=char().emoji;
-  $("milestonePopup").classList.remove("hidden");
-  $("milestoneOverlay").classList.remove("hidden");
-  $("milestoneOverlay").onclick=closeMilestone;
-  setTimeout(closeMilestone,4000);
+function checkMilestone(old, now) {
+  var reached = MILESTONES.find(function(m) { return old < m && now >= m; });
+  if (!reached) return;
+  ge("milestoneTitle").textContent = reached + "コイン達成！";
+  ge("milestoneMsg").textContent = pick(char().messages.milestone);
+  ge("milestoneCharEmoji").textContent = char().emoji;
+  ge("milestonePopup").classList.remove("hidden");
+  ge("milestoneOverlay").classList.remove("hidden");
+  ge("milestoneOverlay").onclick = closeMilestone;
+  setTimeout(closeMilestone, 4000);
 }
-function closeMilestone(){ $("milestonePopup").classList.add("hidden"); $("milestoneOverlay").classList.add("hidden"); }
-
-// ═══════════════════════════════════════════
-// RESULT
-// ═══════════════════════════════════════════
-function showResult(){
-  const pct=Math.round(state.sessionScore/10*100);
-  const grade=pct>=90?"🌟 完璧！":pct>=70?"😊 よくできました！":pct>=50?"💪 もう少し！":"📚 もっと練習しよう！";
+function closeMilestone() { ge("milestonePopup").classList.add("hidden"); ge("milestoneOverlay").classList.add("hidden"); }
+function showResult() {
+  var pct = Math.round(state.sessionScore / 10 * 100);
+  var grade = pct >= 90 ? "🌟 完璧！" : pct >= 70 ? "😊 よくできました！" : pct >= 50 ? "💪 もう少し！" : "📚 もっと練習しよう！";
   showScreen("resultScreen");
-  $("resultCharEmoji").textContent=char().emoji;
-  $("resultMsg").textContent=pick(char().messages.complete);
-  $("resultScoreNum").textContent=state.sessionScore;
-  $("resultScoreNum").style.color=subj().color;
-  $("resultGrade").textContent=grade;
-  $("resultPct").textContent=pct+"%";
-  $("resultCoins").textContent="合計 "+state.coins+" コイン";
-  $("resultTotal").textContent="総回答 "+state.total+" 問";
-  $("retryBtn").style.background=subj().color;
-  const next=MILESTONES.find(m=>m>state.coins);
-  $("nextMilestoneBox").innerHTML=next?"💰 次の$1まであと <strong>"+(next-state.coins)+"コイン</strong>！":"🎊 全マイルストーン達成！すごすぎ！";
+  ge("resultCharEmoji").textContent = char().emoji;
+  ge("resultMsg").textContent = pick(char().messages.complete);
+  ge("resultScoreNum").textContent = state.sessionScore;
+  ge("resultScoreNum").style.color = subj().color;
+  ge("resultGrade").textContent = grade;
+  ge("resultPct").textContent = pct + "%";
+  ge("resultCoins").textContent = "合計 " + state.coins + " コイン";
+  ge("resultTotal").textContent = "総回答 " + state.total + " 問";
+  ge("retryBtn").style.background = subj().color;
+  var next = MILESTONES.find(function(m) { return m > state.coins; });
+  ge("nextMilestoneBox").innerHTML = next ? "💰 次の$1まであと <strong>" + (next - state.coins) + "コイン</strong>！" : "🎊 全マイルストーン達成！すごすぎ！";
 }
-function retrySession(){ startSession(state.subject); }
-
-// ═══════════════════════════════════════════
-// NAV
-// ═══════════════════════════════════════════
-function showScreen(id){ ["homeScreen","quizScreen","resultScreen"].forEach(s=>$(s).classList.add("hidden")); $(id).classList.remove("hidden"); }
-function goHome(){ renderHome(); }
-function resetData(){ if(!confirm("コインと記録をリセットしますか？")) return; state.coins=0; state.total=0; saveState(); renderHome(); }
-
-window.onload=()=>renderHome();
+function retrySession() { startSession(state.subject); }
+function showScreen(id) {
+  ["homeScreen", "quizScreen", "resultScreen"].forEach(function(s) { ge(s).classList.add("hidden"); });
+  ge(id).classList.remove("hidden");
+}
+function goHome() { renderHome(); }
+function resetData() {
+  if (!confirm("コインと記録をリセットしますか？")) return;
+  state.coins = 0; state.total = 0; saveState(); renderHome();
+}
+window.onload = function() { renderHome(); };
 </script>
 </body>
 </html>

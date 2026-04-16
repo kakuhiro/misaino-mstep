@@ -5,12 +5,43 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { subject } = req.body;
+    const { subject, questionNumber } = req.body;
 
+    // 難易度設定（オプションA：段階的に難しくなる）
+    let difficulty;
+    if (questionNumber <= 3) difficulty = "easy - straightforward and simple";
+    else if (questionNumber <= 7) difficulty = "medium - requires some thinking";
+    else difficulty = "hard - challenging, requires deeper understanding";
+
+    // M-STEP実際の出題トピック
     const subjectPrompts = {
-      math:    "5th grade Michigan M-STEP Mathematics",
-      science: "5th grade Michigan M-STEP Science (ecosystems, matter/energy, Earth science)",
-      social:  "5th grade Michigan M-STEP Social Studies (US history, Michigan geography, civics, economics)",
+      math: `5th grade Michigan M-STEP Mathematics focusing on these topics:
+- Volume of rectangular prisms and cubes (cubic units)
+- Volume of irregular 3D shapes
+- Fractions (adding, subtracting, multiplying)
+- Decimal operations
+- Coordinate planes
+- Data analysis and line plots
+Difficulty: ${difficulty}`,
+
+      science: `5th grade Michigan M-STEP Science focusing on these topics:
+- Cells, tissues, organs, and organ systems
+- How body systems work together (digestive, circulatory, respiratory, nervous)
+- Ecosystems and food webs
+- Matter and its properties
+- Energy transfer
+- Earth's systems
+Difficulty: ${difficulty}`,
+
+      social: `5th grade Michigan M-STEP Social Studies focusing on these topics:
+- Pre-colonial America and Native Americans
+- European exploration and colonization
+- Colonial life in America (1600s-1700s)
+- Events leading to American Revolution
+- Declaration of Independence and its meaning
+- Early American government
+- Michigan history and geography
+Difficulty: ${difficulty}`,
     };
 
     const prompt = `Generate a ${subjectPrompts[subject] || subjectPrompts.math} multiple choice question for a 5th grader (age 10-11).

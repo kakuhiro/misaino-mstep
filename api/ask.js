@@ -5,7 +5,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { subject, questionNumber } = req.body;
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const subject = body.subject;
+    const questionNumber = body.questionNumber || 1;
 
     // 難易度設定（オプションA：段階的に難しくなる）
     let difficulty;

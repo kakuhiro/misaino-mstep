@@ -244,18 +244,27 @@ var state = {
   character: "hangyodon", subject: "math",
   coins: parseInt(localStorage.getItem("coins") || "0"),
   total: parseInt(localStorage.getItem("total") || "0"),
+  answeredCorrectly: JSON.parse(localStorage.getItem("answeredCorrectly") || "{}"),
   sessionQuestions: [], current: 0, sessionScore: 0, streak: 0, selected: null
 };
 function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 function char() { return CHARACTERS[state.character]; }
 function subj() { return SUBJECTS[state.subject]; }
 function ge(id) { return document.getElementById(id); }
-function saveState() { localStorage.setItem("coins", state.coins); localStorage.setItem("total", state.total); }
+function saveState() { 
+  localStorage.setItem("coins", state.coins); 
+  localStorage.setItem("total", state.total);
+  localStorage.setItem("answeredCorrectly", JSON.stringify(state.answeredCorrectly));
+}
 function fetchQuestion(subject, questionNumber) {
   return fetch("/api/ask", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ subject: subject, questionNumber: questionNumber || 1 })
+    body: JSON.stringify({ 
+      subject: subject, 
+      questionNumber: questionNumber || 1,
+      answeredIds: state.answeredCorrectly[subject] || []
+    })
   }).then(function(res) { return res.json(); }).then(function(data) {
     if (data.error) throw new Error(data.error);
     return data;
@@ -387,11 +396,22 @@ function handleAnswer(choice) {
     var bonus = state.streak >= 3 ? 2 : 1;
     var old = state.coins;
     state.coins += bonus;
+    // 正解済みIDを記録
+    var q = state.sessionQuestions[state.current];
+    if (q.fromBank && q.bankIndex !== undefined) {
+      if (!state.answeredCorrectly[state.subject]) state.answeredCorrectly[state.subject] = [];
+      if (!state.answeredCorrectly[state.subject].includes(q.bankIndex)) {
+        state.answeredCorrectly[state.subject].push(q.bankIndex);
+      }
+    }
     saveState(); updateCoinDisplay();
     setBubble("quiz", pick(char().messages.correct));
     checkMilestone(old, state.coins);
   } else {
-    state.streak = 0; saveState();
+    state.streak = 0;
+    // 不正解でコイン-1（0以下にはならない）
+    state.coins = Math.max(0, state.coins - 1);
+    saveState(); updateCoinDisplay();
     setBubble("quiz", pick(char().messages.wrong));
   }
   if (state.streak >= 3) {
